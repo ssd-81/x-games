@@ -43,6 +43,26 @@ xg                      # open the interactive TUI
 xg search "ai buildathon" --min-prize 50000
 ```
 
+## Two extra axes: who hosts it, and what you get
+
+Besides `kind`, every event carries two more labels:
+
+| Axis | Values | Why it matters |
+|---|---|---|
+| `host` | `company`, `university`, `community`, `individual` | tells a company run buildathon apart from a college fest |
+| `track` | `compete`, `hire`, `learn` | **the outcome**: a prize, a job, or a fellowship |
+
+`track:hire` is the lane for "present something of substance" — events whose prize *is* a job:
+pre-placement internships, offer letters, take-home trials, portfolio reviews. They are still
+build-events (you are judged on what you built), so they are never mixed with plain job postings.
+
+```bash
+xg search "host:company track:hire"        # company events you can get hired from
+xg search "track:hire prize:>10000"         # hiring events worth a shot
+```
+
+In the TUI: `h` = hiring lane, `c` = company lane. The list marks them with `⚑hire` and `⌂company`.
+
 ## The search language
 
 One line mixes free text with filters:
@@ -54,6 +74,8 @@ ai buildathon kind:hackathon region:India prize:>50000 deadline:<30d
 | Filter | Meaning | Example |
 |---|---|---|
 | `kind:` | event class | `kind:buildathon`, `kind:!internship` |
+| `host:` | who organises it | `host:company`, `host:university` |
+| `track:` | what you get out of it | `track:hire`, `track:compete` |
 | `source:` | origin | `source:unstop` |
 | `region:` | geography | `region:India` |
 | `mode:` | online / hybrid / offline | `mode:online` |
@@ -61,6 +83,7 @@ ai buildathon kind:hackathon region:India prize:>50000 deadline:<30d
 | `org:` | organizer | `org:razorpay` |
 | `prize:` | amount | `prize:>50000`, `prize:1000-50000` |
 | `deadline:` | closing window | `deadline:<14d`, `deadline:>7d` |
+| `org:` | organiser name | `org:razorpay` |
 | `-word` | exclude a term | `ai -internship` |
 | `title:` / `description:` | field scoped text | `title:buildathon` |
 

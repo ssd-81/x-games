@@ -62,6 +62,27 @@ func Run(opts Options) error {
 	return p.Start()
 }
 
+// lane narrows the results to a quick pick: every event, the hiring
+// opportunities or the company hosted ones.
+type lane int
+
+const (
+	laneAll lane = iota
+	laneHire
+	laneCompany
+)
+
+func (l lane) String() string {
+	switch l {
+	case laneHire:
+		return "hiring"
+	case laneCompany:
+		return "company"
+	default:
+		return "all"
+	}
+}
+
 // mode is the current interaction mode of the interface.
 type mode int
 
@@ -93,6 +114,7 @@ type model struct {
 	offset  int
 	sortBy  string
 	showAll bool
+	lane    lane
 	starred map[string]bool
 
 	searchInput   textInput
@@ -205,6 +227,12 @@ func (m *model) search() {
 		f.Verdict = ""
 	}
 	f.IncludeDismissed = false
+	switch m.lane {
+	case laneHire:
+		f.Tracks = []string{string(domain.TrackHire)}
+	case laneCompany:
+		f.Hosts = []string{string(domain.HostCompany)}
+	}
 	res, err := m.store.Search(f)
 	if err != nil {
 		m.errText = err.Error()

@@ -52,6 +52,8 @@ func DefaultConfig() Config {
 type Result struct {
 	Score   float64
 	Verdict domain.Verdict
+	Track   domain.Track
+	Host    domain.Host
 	Reasons []string
 }
 
@@ -191,6 +193,38 @@ func (c *Classifier) Classify(o *domain.Opportunity) Result {
 		reasons = append(reasons, "-0.05 job-vocab-in-title")
 	}
 
+	// 9. Hiring track: the build is judged with a hiring outcome in mind.
+	// This separates "build something, we might hire you" from a job
+	// posting, and it is what turns an internship listing into a build-event.
+	hireHits := 0
+	for _, v := range hireVocab {
+		if v.match(text) {
+			hireHits++
+			reasons = append(reasons, fmt.Sprintf("hire-vocab:%s", v.label))
+		}
+	}
+	track := domain.TrackUnknown
+	if hireHits > 0 && structure >= 2 {
+		track = domain.TrackHire
+		w := min(float64(hireHits)*0.10, 0.30)
+		raw += w
+		reasons = append(reasons, fmt.Sprintf("%+0.2f hire-track", w))
+	} else if o.Kind == domain.KindFellowship || o.Kind == domain.KindResidency {
+		track = domain.TrackLearn
+	} else if o.Kind.IsBuildEvent() {
+		track = domain.TrackCompete
+	}
+
+	// 10. Host detection: company organised events are a strong signal that
+	// the listing is a real, build oriented event.
+	if o.Host.IsUnknown() && o.Org != "" {
+		o.Host = domain.DetectHost(o.Org, nil)
+	}
+	if o.Host == domain.HostCompany {
+		raw += 0.05
+		reasons = append(reasons, "+0.05 host:company")
+	}
+
 	score := clamp(raw, 0, 1)
 
 	// The verdict is decided on the raw (unclamped) score so that a clearly
@@ -226,7 +260,7 @@ func (c *Classifier) Classify(o *domain.Opportunity) Result {
 		}
 	}
 
-	return Result{Score: round2(score), Verdict: verdict, Reasons: reasons}
+	return Result{Score: round2(score), Verdict: verdict, Track: track, Host: o.Host, Reasons: reasons}
 }
 
 // Apply stores the classification result on the opportunity.
@@ -234,6 +268,8 @@ func (c *Classifier) Apply(o *domain.Opportunity) Result {
 	res := c.Classify(o)
 	o.Score = res.Score
 	o.Verdict = res.Verdict
+	o.Track = res.Track
+	o.Host = res.Host
 	o.Reasons = res.Reasons
 	return res
 }

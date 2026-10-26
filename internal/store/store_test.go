@@ -259,3 +259,62 @@ func TestRulesRoundTrip(t *testing.T) {
 		t.Fatalf("expected no rules, got %+v", rules)
 	}
 }
+
+func TestSearchHostAndTrackFilters(t *testing.T) {
+	s := testStore(t)
+
+	company := &domain.Opportunity{
+		Source: "unstop", SourceID: "10", Title: "AWS Agentic AI Hackathon", Org: "AWS",
+		Kind: domain.KindHackathon, Host: domain.HostCompany, Track: domain.TrackHire,
+		Score: 0.9, Verdict: domain.VerdictInclude,
+	}
+	college := &domain.Opportunity{
+		Source: "unstop", SourceID: "11", Title: "College Code Fest", Org: "Some College",
+		Kind: domain.KindHackathon, Host: domain.HostUniversity, Track: domain.TrackCompete,
+		Score: 0.9, Verdict: domain.VerdictInclude,
+	}
+	for _, o := range []*domain.Opportunity{company, college} {
+		o.ID = o.ComputeID()
+		o.ContentHash = o.ComputeContentHash()
+		if _, err := s.Upsert(o); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	res, err := s.Search(Filter{Hosts: []string{"company"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Items) != 1 || res.Items[0].Title != "AWS Agentic AI Hackathon" {
+		t.Fatalf("unexpected host filter result: %+v", res.Items)
+	}
+
+	res, err = s.Search(Filter{Tracks: []string{"hire"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Items) != 1 || res.Items[0].Title != "AWS Agentic AI Hackathon" {
+		t.Fatalf("unexpected track filter result: %+v", res.Items)
+	}
+
+	res, err = s.Search(Filter{Hosts: []string{"company"}, Tracks: []string{"hire"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Items) != 1 {
+		t.Fatalf("unexpected combined filter result: %+v", res.Items)
+	}
+}
+
+func TestSearchTagIsLoose(t *testing.T) {
+	s := testStore(t)
+	seed(t, s)
+
+	res, err := s.Search(Filter{Tags: []string{"AI"}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(res.Items) == 0 {
+		t.Fatal("expected the loose tag match to find the AI event")
+	}
+}

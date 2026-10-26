@@ -136,6 +136,8 @@ type Opportunity struct {
 	Org         string     `json:"org"`
 	Description string     `json:"description"`
 	Kind        Kind       `json:"kind"`
+	Host        Host       `json:"host"`
+	Track       Track      `json:"track"`
 	Status      Status     `json:"status"`
 	Mode        Mode       `json:"mode"`
 	Region      string     `json:"region"`
@@ -170,6 +172,8 @@ func NewOpportunity(source, sourceID, title string) *Opportunity {
 		SourceID: sourceID,
 		Title:    strings.TrimSpace(title),
 		Kind:     KindUnknown,
+		Host:     HostUnknown,
+		Track:    TrackUnknown,
 		Status:   StatusUnknown,
 		Mode:     ModeUnknown,
 		Verdict:  VerdictUncertain,
@@ -197,6 +201,10 @@ func (o *Opportunity) ComputeContentHash() string {
 	b.WriteString(normalizeText(o.Org))
 	b.WriteString("|")
 	b.WriteString(string(o.Kind))
+	b.WriteString("|")
+	b.WriteString(string(o.Host))
+	b.WriteString("|")
+	b.WriteString(string(o.Track))
 	b.WriteString("|")
 	if o.DeadlineAt != nil {
 		b.WriteString(o.DeadlineAt.UTC().Format(time.RFC3339))

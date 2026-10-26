@@ -72,6 +72,19 @@ var jobVocab = []vocabEntry{
 	newVocab("salesrole", `\bsales\b`, `\bbusiness development\b`, `\bbd intern\b`, `\bmarketing intern\b`, `\boperations intern\b`),
 }
 
+// hireVocab are words that indicate the outcome of the build is a job, an
+// internship or a contract: the event is judged on what you build and the
+// reward is being hired.
+var hireVocab = []vocabEntry{
+	newVocab("preplacement", `\bpre[ -]?placement\b`, `\bpre[ -]?placed\b`),
+	newVocab("internshipoffer", `\binternship opportunit`, `\b1[ -]month free internship\b`, `\binternship at\b`),
+	newVocab("hired", `\bhired\b`, `\bhiring based on\b`, `\bget (an |a )?offer\b`, `\boffer letter\b`),
+	newVocab("trial", `\btake[ -]?home\b`, `\btrial project\b`, `\bpoc\b`, `\bpaid trial\b`, `\bwork sample\b`),
+	newVocab("convert", `\bconvert(?:ed|ing)? to (a )?full[ -]?time\b`, `\bconversion\b`, `\bfull[ -]?time (?:role|opportunity|position)\b`),
+	newVocab("portfolio", `\bportfolio\b`, `\bpresent your (?:work|project|build)\b`, `\bshowcase your (?:work|project)\b`, `\bdemo (?:your|to our) (?:project|work|team)\b`),
+	newVocab("recommendation", `\bletter of recommendation\b`, `\bprofessional recommendation\b`),
+}
+
 // kindWeights maps an explicit kind hint (from the source) to a score delta.
 // A decisive kind (hackathon) settles the classification on its own; an
 // ambiguous kind (internship) only nudges it.

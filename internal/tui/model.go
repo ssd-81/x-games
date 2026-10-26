@@ -163,6 +163,22 @@ func (m *model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 			m.status("dismissed: %s", truncate(o.Title, 40))
 			m.refresh()
 		}
+	case "h":
+		if m.lane == laneHire {
+			m.lane = laneAll
+		} else {
+			m.lane = laneHire
+		}
+		m.search()
+		m.status("lane: %s", m.lane)
+	case "c":
+		if m.lane == laneCompany {
+			m.lane = laneAll
+		} else {
+			m.lane = laneCompany
+		}
+		m.search()
+		m.status("lane: %s", m.lane)
 	case "v":
 		m.showAll = !m.showAll
 		m.refresh()

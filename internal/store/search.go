@@ -25,6 +25,8 @@ type Filter struct {
 	Modes   []string
 	Regions []string
 	Tags    []string
+	Hosts   []string
+	Tracks  []string
 	Org     string
 
 	// Verdict restricts to include / exclude / uncertain. Empty means any.
@@ -110,9 +112,23 @@ func (s *Store) Search(f Filter) (SearchResult, error) {
 		where = append(where, `o.region IN (`+placeholders(len(f.Regions))+`)`)
 		args = append(args, toAny(f.Regions)...)
 	}
+	if len(f.Hosts) > 0 {
+		where = append(where, `o.host IN (`+placeholders(len(f.Hosts))+`)`)
+		args = append(args, toAny(f.Hosts)...)
+	}
+	if len(f.Tracks) > 0 {
+		where = append(where, `o.track IN (`+placeholders(len(f.Tracks))+`)`)
+		args = append(args, toAny(f.Tracks)...)
+	}
 	if len(f.Tags) > 0 {
-		where = append(where, `EXISTS (SELECT 1 FROM opportunity_tags t WHERE t.opportunity_id = o.id AND t.tag IN (`+placeholders(len(f.Tags))+`))`)
-		args = append(args, toAny(f.Tags)...)
+		// Tags are matched loosely: "tag:AI" also finds
+		// "Artificial Intelligence (AI)".
+		var tagClauses []string
+		for _, t := range f.Tags {
+			tagClauses = append(tagClauses, `t.tag LIKE ?`)
+			args = append(args, "%"+t+"%")
+		}
+		where = append(where, `EXISTS (SELECT 1 FROM opportunity_tags t WHERE t.opportunity_id = o.id AND (`+strings.Join(tagClauses, " OR ")+`))`)
 	}
 	if f.Org != "" {
 		where = append(where, `o.org LIKE ?`)

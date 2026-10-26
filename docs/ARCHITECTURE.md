@@ -51,6 +51,28 @@ filtering decisions in this document implement that reading.
 | `job` | Full-time / internship postings with a JD, salary, interview process | ❌ exclude |
 | `conference` | Conference with no build track | ❌ exclude (unless it has a hackathon side-track) |
 
+### 2.1b Three orthogonal axes
+
+`kind` alone is not enough to describe a build-event. XGames tags every item with three
+independent axes:
+
+| Axis | Values | Source |
+|---|---|---|
+| `kind` | hackathon, buildathon, challenge, competition, contest, ctf, fellowship, residency, internship, meetup, job | the source's own type |
+| `host` | company, university, community, individual, unknown | org name heuristics + a company registry (`internal/domain/hosts.go`) |
+| `track` | compete, hire, learn, unknown | the outcome the event offers |
+
+`track=hire` is the axis that answers *"I want to present something of substance to get hired"*.
+It is set when the reward for winning is employment rather than money:
+
+- the source marks the prize with a pre-placement internship / job offer (Unstop exposes
+  `pre_placement_internship` and `pre_placement_opportunity` per prize),
+- or the text mentions an offer letter, take-home trial, portfolio review, conversion to a
+  full-time role.
+
+These items stay **included**: they are judged on a build, so they belong in the feed — but they
+are filtered into their own lane instead of being mixed with prize-only contests.
+
 ### 2.2 The classifier — "build-signal scoring"
 
 Rather than maintaining a blocklist of job boards (whack-a-mole), the app uses a **positive
@@ -67,6 +89,8 @@ Signals are weighted, grouped, and each contributes a bounded amount:
 | **Event vocabulary** | `prize`, `winner`, `judging criteria`, `leaderboard`, `certificate`, `mentorship`, `stipend`, `open source` | +0.03 each, capped +0.20 |
 | **Job vocabulary** | `salary`, `CTC`, `LPA`, `per annum`, `full-time`, `part-time`, `interview process`, `resume/CV`, `JD`, `immediate joiner`, `work from office`, `apply now`, `recruiter`, `candidate` | −0.06 each, capped −0.45 |
 | **Job without deadline** | a job-shaped item that also has no deadline | −0.10 |
+| **Hiring track** | the build is judged with a hiring outcome (offer, trial, pre-placement) | +0.10 each, capped +0.30 |
+| **Company host** | the organiser is a company | +0.05 |
 
 **Verdicts**
 - `score ≥ include_threshold` (default `0.55`) → `include`
@@ -291,6 +315,8 @@ two-stage:
 ```sql
 CREATE TABLE opportunities (
   id            TEXT PRIMARY KEY,
+  host          TEXT NOT NULL DEFAULT 'unknown',   -- company | university | community | individual
+  track         TEXT NOT NULL DEFAULT 'unknown',   -- compete | hire | learn
   source        TEXT NOT NULL,
   source_id     TEXT NOT NULL,
   url           TEXT NOT NULL,
@@ -456,8 +482,8 @@ user query ──▶ tokenize ──▶ FTS5 MATCH (prefix-matched, quoted phras
 
 - **Free-text + filters in one line** (implemented in `internal/app/query.go`):
   `ai buildathon kind:hackathon region:India prize:>50000 deadline:<30d -internship`.
-  Supported filter fields: `kind`, `source`, `region`, `mode`, `status`, `tag`, `org`, `title`,
-  `description`, `prize`, `deadline`. A `!` prefix negates a value (`kind:!internship`), `-term`
+  Supported filter fields: `kind`, `source`, `region`, `host`, `track`, `mode`, `status`, `tag`,
+  `org`, `title`, `description`, `prize`, `deadline`. A `!` prefix negates a value (`kind:!internship`), `-term`
   excludes a free-text term, `prize:1000-50000` is a range.
 - **Filters** (all combinable, persisted in config so they can be reused):
   `kind`, `source`, `status`, `mode`, `region`, `verdict`, `tags`, `prize_min`, `prize_max`,

@@ -141,19 +141,26 @@ func runSearch(args []string) int {
 	var common commonFlags
 	common.register(fs)
 	var (
-		kindList   = fs.String("kind", "", "comma separated kinds (hackathon,buildathon,...)")
-		sourceList = fs.String("source", "", "comma separated sources")
-		regionList = fs.String("region", "", "comma separated regions")
-		minPrize   = fs.Float64("min-prize", 0, "minimum prize amount")
-		maxPrize   = fs.Float64("max-prize", 0, "maximum prize amount")
-		before     = fs.String("deadline-before", "", "only events closing before this duration (e.g. 30d)")
-		after      = fs.String("deadline-after", "", "only events closing after this duration")
-		verdict    = fs.String("verdict", "include", "verdict filter: include, exclude, uncertain or any")
-		sortBy     = fs.String("sort", "relevance", "sort order: relevance, deadline, prize, newest, score")
-		limit      = fs.Int("limit", 30, "maximum number of results")
-		all        = fs.Bool("all", false, "include excluded and uncertain items")
-		asJSON     = fs.Bool("json", false, "print results as JSON")
+		kindList   stringList
+		sourceList stringList
+		regionList stringList
+		hostList   stringList
+		trackList  stringList
 	)
+	fs.Var(&kindList, "kind", "kinds (hackathon,buildathon,...)")
+	fs.Var(&sourceList, "source", "sources")
+	fs.Var(&regionList, "region", "regions")
+	fs.Var(&hostList, "host", "host type (company,university,community)")
+	fs.Var(&trackList, "track", "track (compete,hire,learn)")
+	minPrize := fs.Float64("min-prize", 0, "minimum prize amount")
+	maxPrize := fs.Float64("max-prize", 0, "maximum prize amount")
+	before := fs.String("deadline-before", "", "only events closing before this duration (e.g. 30d)")
+	after := fs.String("deadline-after", "", "only events closing after this duration")
+	verdict := fs.String("verdict", "include", "verdict filter: include, exclude, uncertain or any")
+	sortBy := fs.String("sort", "relevance", "sort order: relevance, deadline, prize, newest, score")
+	limit := fs.Int("limit", 30, "maximum number of results")
+	all := fs.Bool("all", false, "include excluded and uncertain items")
+	asJSON := fs.Bool("json", false, "print results as JSON")
 	positional, err := parseInterspersed(fs, args)
 	if err != nil {
 		return 2
@@ -172,17 +179,24 @@ func runSearch(args []string) int {
 	}
 	defer st.Close()
 
-	f := store.Filter{
-		Query:    query,
-		Kinds:    splitList(*kindList),
-		Sources:  splitList(*sourceList),
-		Regions:  splitList(*regionList),
-		MinPrize: *minPrize,
-		MaxPrize: *maxPrize,
-		Verdict:  *verdict,
-		Sort:     *sortBy,
-		Limit:    *limit,
+	// The query string may carry its own filters (kind:, host:, track: ...);
+	// the explicit flags are merged on top of it.
+	pq := app.ParseQuery(query)
+	f := pq.Filter(*limit, *sortBy)
+	f.Kinds = append(f.Kinds, kindList...)
+	f.Sources = append(f.Sources, sourceList...)
+	f.Regions = append(f.Regions, regionList...)
+	f.Hosts = append(f.Hosts, hostList...)
+	f.Tracks = append(f.Tracks, trackList...)
+	if *minPrize > 0 {
+		f.MinPrize = *minPrize
 	}
+	if *maxPrize > 0 {
+		f.MaxPrize = *maxPrize
+	}
+	f.Verdict = *verdict
+	f.Sort = *sortBy
+	f.Limit = *limit
 	if *all {
 		f.Verdict = ""
 	}

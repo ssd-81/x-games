@@ -143,6 +143,15 @@ var migrations = []migration{
 			END`,
 		},
 	},
+	{
+		version: 3,
+		name:    "host and track axes",
+		stmts: []string{
+			`ALTER TABLE opportunities ADD COLUMN host TEXT NOT NULL DEFAULT 'unknown'`,
+			`ALTER TABLE opportunities ADD COLUMN track TEXT NOT NULL DEFAULT 'unknown'`,
+			`CREATE INDEX IF NOT EXISTS idx_opp_host_track ON opportunities(host, track)`,
+		},
+	},
 }
 
 // migrate applies all pending migrations.

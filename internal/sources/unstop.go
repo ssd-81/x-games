@@ -26,6 +26,18 @@ type Unstop struct {
 	Types []string
 }
 
+// unstopPrize is one prize row of an unstop opportunity.
+type unstopPrize struct {
+	Rank     string  `json:"rank"`
+	Cash     float64 `json:"cash"`
+	Currency string  `json:"currency"`
+	Others   string  `json:"others"`
+	// PrePlacementIntern and PrePlacementOpport mark prizes that come with a
+	// job offer or a pre-placement internship.
+	PrePlacementIntern int `json:"pre_placement_internship"`
+	PrePlacementOpport int `json:"pre_placement_opportunity"`
+}
+
 type unstopResponse struct {
 	Data struct {
 		Data []unstopOpportunity `json:"data"`
@@ -59,12 +71,7 @@ type unstopOpportunity struct {
 	Organisation struct {
 		Name string `json:"name"`
 	} `json:"organisation"`
-	Prizes []struct {
-		Rank     string  `json:"rank"`
-		Cash     float64 `json:"cash"`
-		Currency string  `json:"currency"`
-		Others   string  `json:"others"`
-	} `json:"prizes"`
+	Prizes           []unstopPrize `json:"prizes"`
 	RegnRequirements struct {
 		StartRegnDt  string `json:"start_regn_dt"`
 		EndRegnDt    string `json:"end_regn_dt"`
@@ -207,6 +214,14 @@ func (u *Unstop) convert(raw unstopOpportunity) (*domain.Opportunity, error) {
 		o.TeamMin, o.TeamMax = 0, 0
 	}
 
+	// A prize that comes with a pre-placement internship or a job offer
+	// means the build is judged with a hiring outcome in mind.
+	for _, p := range raw.Prizes {
+		if p.PrePlacementIntern > 0 || p.PrePlacementOpport > 0 {
+			o.Track = domain.TrackHire
+			o.Tags = append(o.Tags, "pre-placement")
+		}
+	}
 	o.Prize = prizeFromUnstop(raw.Prizes)
 	if o.Prize.IsZero() {
 		var parts []string
@@ -255,6 +270,7 @@ func (u *Unstop) convert(raw unstopOpportunity) (*domain.Opportunity, error) {
 	if o.Region == "" {
 		o.Region = "Global"
 	}
+	o.Host = domain.DetectHost(o.Org, nil)
 	return o, nil
 }
 
@@ -309,12 +325,7 @@ func statusFromUnstopStatus(status string) domain.Status {
 }
 
 // prizeFromUnstop sums the cash prizes of an opportunity.
-func prizeFromUnstop(prizes []struct {
-	Rank     string  `json:"rank"`
-	Cash     float64 `json:"cash"`
-	Currency string  `json:"currency"`
-	Others   string  `json:"others"`
-}) domain.Money {
+func prizeFromUnstop(prizes []unstopPrize) domain.Money {
 	var total float64
 	currency := ""
 	for _, p := range prizes {

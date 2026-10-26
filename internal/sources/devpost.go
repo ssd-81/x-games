@@ -177,6 +177,7 @@ func (d *Devpost) convert(h devpostHackathon) (*domain.Opportunity, error) {
 	if h.InviteOnly {
 		o.Eligibility = "Invite only"
 	}
+	o.Host = domain.DetectHost(o.Org, nil)
 	return o, nil
 }
 

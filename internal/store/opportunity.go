@@ -70,8 +70,9 @@ func (s *Store) Upsert(o *domain.Opportunity) (UpsertResult, error) {
 			id, source, source_id, url, title, org, description, kind, status, mode, region,
 			starts_at, ends_at, deadline_at, prize_amount, prize_currency, prize_text,
 			team_min, team_max, tags, eligibility, judging, image_url,
-			score, verdict, reasons, content_hash, first_seen_at, last_seen_at, updated_at, is_new
-		) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,1)
+			score, verdict, reasons, content_hash, first_seen_at, last_seen_at, updated_at, is_new,
+			host, track
+		) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,?)
 		ON CONFLICT(id) DO UPDATE SET
 			url=excluded.url, title=excluded.title, org=excluded.org, description=excluded.description,
 			kind=excluded.kind, status=excluded.status, mode=excluded.mode, region=excluded.region,
@@ -81,13 +82,16 @@ func (s *Store) Upsert(o *domain.Opportunity) (UpsertResult, error) {
 			eligibility=excluded.eligibility, judging=excluded.judging, image_url=excluded.image_url,
 			score=excluded.score, verdict=excluded.verdict, reasons=excluded.reasons,
 			content_hash=excluded.content_hash, last_seen_at=excluded.last_seen_at,
-			updated_at=excluded.updated_at, is_new=0
+			updated_at=excluded.updated_at, is_new=0,
+			host=excluded.host, track=excluded.track,
+			host=excluded.host, track=excluded.track
 	`,
 		o.ID, o.Source, o.SourceID, o.URL, o.Title, o.Org, o.Description, string(o.Kind), string(o.Status),
 		string(o.Mode), o.Region, fmtTime(o.StartsAt), fmtTime(o.EndsAt), fmtTime(o.DeadlineAt),
 		o.Prize.Amount, o.Prize.Currency, o.Prize.Text, o.TeamMin, o.TeamMax, string(tags),
 		o.Eligibility, o.Judging, o.ImageURL, o.Score, string(o.Verdict), string(reasons),
 		o.ContentHash, fmtTimeVal(o.FirstSeenAt), fmtTimeVal(o.LastSeenAt), fmtTimeVal(o.UpdatedAt),
+		string(o.Host), string(o.Track),
 	)
 	if err != nil {
 		return res, fmt.Errorf("upsert opportunity %s: %w", o.ID, err)
@@ -281,7 +285,8 @@ func (s *Store) RecentSyncRuns(limit int) ([]SyncRun, error) {
 const oppColumns = `id, source, source_id, url, title, org, description, kind, status, mode, region,
 	starts_at, ends_at, deadline_at, prize_amount, prize_currency, prize_text,
 	team_min, team_max, tags, eligibility, judging, image_url,
-	score, verdict, reasons, content_hash, first_seen_at, last_seen_at, updated_at, user_verdict, is_new`
+	score, verdict, reasons, content_hash, first_seen_at, last_seen_at, updated_at, user_verdict, is_new,
+	host, track`
 
 type scanner interface {
 	Scan(dest ...any) error
@@ -296,16 +301,19 @@ func scanOpportunity(row scanner) (*domain.Opportunity, error) {
 		firstSeen, lastSeen, upd    sql.NullString
 		userVerdict                 sql.NullString
 		isNew                       int
+		host, track                 string
 	)
 	err := row.Scan(&o.ID, &o.Source, &o.SourceID, &o.URL, &o.Title, &o.Org, &o.Description,
 		&kind, &status, &mode, &o.Region, &starts, &ends, &deadline,
 		&o.Prize.Amount, &o.Prize.Currency, &o.Prize.Text,
 		&o.TeamMin, &o.TeamMax, &tagsJSON, &o.Eligibility, &o.Judging, &o.ImageURL,
-		&o.Score, &verdict, &reasonsJSON, &o.ContentHash, &firstSeen, &lastSeen, &upd, &userVerdict, &isNew)
+		&o.Score, &verdict, &reasonsJSON, &o.ContentHash, &firstSeen, &lastSeen, &upd, &userVerdict, &isNew, &host, &track)
 	if err != nil {
 		return nil, err
 	}
 	o.IsNew = isNew != 0
+	o.Host = domain.Host(host)
+	o.Track = domain.Track(track)
 	o.Kind = domain.Kind(kind)
 	o.Status = domain.Status(status)
 	o.Mode = domain.Mode(mode)

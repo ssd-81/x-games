@@ -23,6 +23,8 @@ type ParsedQuery struct {
 	Match          string
 	Kinds          []string
 	ExcludeKinds   []string
+	Hosts          []string
+	Tracks         []string
 	Sources        []string
 	ExcludeSources []string
 	Regions        []string
@@ -69,6 +71,12 @@ func ParseQuery(q string) ParsedQuery {
 			} else {
 				pq.Kinds = append(pq.Kinds, value)
 			}
+			pq.HasFilters = true
+		case "host":
+			pq.Hosts = append(pq.Hosts, value)
+			pq.HasFilters = true
+		case "track":
+			pq.Tracks = append(pq.Tracks, value)
 			pq.HasFilters = true
 		case "source":
 			if negate {
@@ -120,6 +128,8 @@ func (pq ParsedQuery) Filter(limit int, sortBy string) store.Filter {
 		Kinds:          pq.Kinds,
 		Sources:        pq.Sources,
 		Regions:        pq.Regions,
+		Hosts:          pq.Hosts,
+		Tracks:         pq.Tracks,
 		Modes:          pq.Modes,
 		Status:         pq.Statuses,
 		Tags:           pq.Tags,

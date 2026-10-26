@@ -208,3 +208,55 @@ func TestRuleExpressionErrors(t *testing.T) {
 		}
 	}
 }
+
+// A build judged with a hiring outcome is a build-event, not a job listing.
+func TestClassifyHiringTrack(t *testing.T) {
+	o := &domain.Opportunity{
+		Source: "unstop", Title: "Reverse Coding Challenge 2026", Org: "InfoTechiezz",
+		Description: "Build a production ready project and present it to our hiring panel. " +
+			"Top performers receive a pre-placement internship and a letter of recommendation. " +
+			"Teams of 2-4, 48-hour challenge, judging criteria published on the site.",
+		Kind: domain.KindChallenge, DeadlineAt: ptrTime("2026-11-20T00:00:00Z"),
+		TeamMin: 2, TeamMax: 4,
+	}
+	res := New(DefaultConfig()).Classify(o)
+	if res.Track != domain.TrackHire {
+		t.Errorf("track = %s, want hire (reasons: %v)", res.Track, res.Reasons)
+	}
+	if res.Verdict != domain.VerdictInclude {
+		t.Errorf("verdict = %s, want include", res.Verdict)
+	}
+	if res.Host != domain.HostCompany {
+		t.Errorf("host = %s, want company", res.Host)
+	}
+}
+
+// A plain job posting stays excluded, even with company wording.
+func TestClassifyJobPostingStaysExcluded(t *testing.T) {
+	o := &domain.Opportunity{
+		Source: "unstop", Title: "Marketing Internship", Org: "Acme",
+		Description: "Full-time internship, work from office. CTC 12 LPA. " +
+			"Apply now with your resume. Candidates must be available for 6 months. " +
+			"Immediate joiners preferred. You will get exposure to the industry.",
+		Kind: domain.KindInternship,
+	}
+	res := New(DefaultConfig()).Classify(o)
+	if res.Verdict != domain.VerdictExclude {
+		t.Errorf("verdict = %s, want exclude (score %.2f, reasons %v)", res.Verdict, res.Score, res.Reasons)
+	}
+}
+
+func TestClassifyCompetitionTrack(t *testing.T) {
+	o := &domain.Opportunity{
+		Source: "devpost", Title: "AWS Agentic AI Partner Hackathon", Org: "AWS",
+		Description: "Build an agent and win a prize. Judging criteria: innovation.",
+		Kind:        domain.KindHackathon, DeadlineAt: ptrTime("2026-11-01T00:00:00Z"),
+	}
+	res := New(DefaultConfig()).Classify(o)
+	if res.Track != domain.TrackCompete {
+		t.Errorf("track = %s, want compete", res.Track)
+	}
+	if res.Host != domain.HostCompany {
+		t.Errorf("host = %s, want company", res.Host)
+	}
+}

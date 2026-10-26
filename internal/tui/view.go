@@ -138,6 +138,15 @@ func (m *model) listView(width, height int) string {
 		if o.IsNew {
 			badge += " ★new"
 		}
+		switch o.Track {
+		case domain.TrackHire:
+			badge += " ⚑hire"
+		case domain.TrackLearn:
+			badge += " ⚑learn"
+		}
+		if o.Host == domain.HostCompany {
+			badge += " ⌂company"
+		}
 		if m.starred[o.ID] {
 			badge += " ★"
 		}
@@ -179,6 +188,12 @@ func (m *model) detailView(width, height int) string {
 	b.WriteString("\n")
 
 	line("  kind      %s", o.Kind.Label())
+	if o.Host != "" && o.Host != domain.HostUnknown {
+		line("  host      %s", o.Host.Label())
+	}
+	if o.Track != "" && o.Track != domain.TrackUnknown {
+		line("  track     %s", trackLabel(o.Track))
+	}
 	line("  status    %s", o.Status)
 	if o.Mode != domain.ModeUnknown {
 		line("  mode      %s", o.Mode)
@@ -245,9 +260,23 @@ func (m *model) detailView(width, height int) string {
 	return strings.Join(lines, "\n")
 }
 
+// trackLabel renders the outcome track of an opportunity.
+func trackLabel(t domain.Track) string {
+	switch t {
+	case domain.TrackHire:
+		return "hire (build judged for a job)"
+	case domain.TrackLearn:
+		return "learn (fellowship / mentorship)"
+	case domain.TrackCompete:
+		return "compete (prizes)"
+	default:
+		return string(t)
+	}
+}
+
 // footerView renders the key hints and the status message.
 func (m *model) footerView() string {
-	hints := "j/k move · / search · f filter · ⏎ open · r sync · s sort · a star · x dismiss · v all · ? help · q quit"
+	hints := "j/k move · / search · f filter · ⏎ open · r sync · s sort · a star · x dismiss · v all · h hire · c company · ? help · q quit"
 	switch m.mode {
 	case modeSearch:
 		hints = "type to search · filters: kind: source: region: prize:> deadline:< · enter apply · esc cancel"
@@ -291,13 +320,18 @@ func (m *model) helpView() string {
 			{"/", "search (free text and filters)"},
 			{"f", "filter (same syntax, filter hints)"},
 			{"filters", "kind: source: region: mode: tag: org:"},
-			{"", "prize:>50000  deadline:<30d  -term to exclude"},
+			{"", "host:company  track:hire  prize:>50000"},
+			{"", "deadline:<30d  -term to exclude"},
 		}},
 		{"curate", [][2]string{
 			{"a", "add or remove from the watchlist"},
 			{"x", "dismiss this event"},
 			{"v", "show excluded and uncertain items"},
 			{"s", "cycle the sort order"},
+		}},
+		{"lanes", [][2]string{
+			{"h", "only the hiring opportunities (build judged for a job)"},
+			{"c", "only the company hosted events"},
 		}},
 		{"sync", [][2]string{
 			{"r", "sync the sources now"},
