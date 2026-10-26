@@ -187,3 +187,105 @@ func TestHelpView(t *testing.T) {
 		t.Fatalf("expected the help text, got:\n%s", m.View())
 	}
 }
+
+// The focused entry must always be inside the rendered window, whatever the
+// sequence of key presses.
+func TestNavigationKeepsFocusVisible(t *testing.T) {
+	m := newTestModel(t)
+	m.Update(tea.WindowSizeMsg{Width: 120, Height: 30})
+
+	for i := 0; i < 50; i++ {
+		key(m, "j")
+		assertFocusVisible(t, m)
+	}
+	for i := 0; i < 50; i++ {
+		key(m, "k")
+		assertFocusVisible(t, m)
+	}
+	key(m, "G")
+	assertFocusVisible(t, m)
+	if m.cursor != len(m.items)-1 {
+		t.Fatalf("cursor = %d, want %d", m.cursor, len(m.items)-1)
+	}
+	key(m, "g")
+	assertFocusVisible(t, m)
+	if m.cursor != 0 {
+		t.Fatalf("cursor = %d, want 0", m.cursor)
+	}
+}
+
+func TestNavigationPageKeys(t *testing.T) {
+	m := newTestModel(t)
+	m.Update(tea.WindowSizeMsg{Width: 120, Height: 30})
+
+	before := m.cursor
+	key(m, "ctrl+d")
+	if m.cursor != before+m.visibleItems() && m.cursor != len(m.items)-1 {
+		t.Fatalf("cursor = %d, want a page down", m.cursor)
+	}
+	assertFocusVisible(t, m)
+
+	key(m, "ctrl+u")
+	assertFocusVisible(t, m)
+}
+
+func TestNavigationStopsAtBounds(t *testing.T) {
+	m := newTestModel(t)
+	m.Update(tea.WindowSizeMsg{Width: 120, Height: 30})
+
+	for i := 0; i < 10; i++ {
+		key(m, "k")
+	}
+	if m.cursor != 0 {
+		t.Fatalf("cursor = %d, want 0", m.cursor)
+	}
+	for i := 0; i < 100; i++ {
+		key(m, "j")
+	}
+	if m.cursor != len(m.items)-1 {
+		t.Fatalf("cursor = %d, want %d", m.cursor, len(m.items)-1)
+	}
+}
+
+// assertFocusVisible checks that the focused entry is part of the rendered
+// list and that the pane geometry is consistent.
+func assertFocusVisible(t *testing.T, m *model) {
+	t.Helper()
+	page := m.visibleItems()
+	if m.cursor < m.offset || m.cursor >= m.offset+page {
+		t.Fatalf("focused entry %d is outside the window [%d,%d)", m.cursor, m.offset, m.offset+page)
+	}
+	if m.offset < 0 {
+		t.Fatalf("negative offset %d", m.offset)
+	}
+	maxOffset := len(m.items) - page
+	if maxOffset > 0 && m.offset > maxOffset {
+		t.Fatalf("offset %d is past the end (%d)", m.offset, maxOffset)
+	}
+	// The rendered list must contain the focused entry.
+	view := m.listView(60, m.listHeight())
+	lines := strings.Split(view, "\n")
+	found := false
+	for i := 0; i < len(lines); i++ {
+		if strings.Contains(lines[i], m.items[m.cursor].Title) {
+			found = true
+			break
+		}
+	}
+	if !found {
+		t.Fatalf("the focused entry %q is not rendered", m.items[m.cursor].Title)
+	}
+}
+
+func TestFocusUsesColourNotGlyph(t *testing.T) {
+	m := newTestModel(t)
+	m.Update(tea.WindowSizeMsg{Width: 120, Height: 30})
+
+	view := m.listView(60, m.listHeight())
+	if strings.Contains(view, "▸") {
+		t.Error("the old cursor glyph should be gone")
+	}
+	if !strings.Contains(view, m.items[m.cursor].Title) {
+		t.Error("the focused entry should be rendered")
+	}
+}

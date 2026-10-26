@@ -112,16 +112,17 @@ func (m *model) handleKey(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "k", "up":
 		m.moveCursor(-1)
 	case "g", "home":
-		m.cursor = 0
-		m.offset = 0
+		m.scrollToTop()
 	case "G", "end":
-		m.cursor = len(m.items) - 1
-		m.clampCursor()
-		m.moveCursor(0)
-	case "ctrl+d":
-		m.moveCursor(m.visibleRows() / 2)
-	case "ctrl+u":
-		m.moveCursor(-m.visibleRows() / 2)
+		m.scrollToBottom()
+	case "ctrl+d", "pgdown":
+		m.moveCursor(m.visibleItems())
+	case "ctrl+u", "pgup":
+		m.moveCursor(-m.visibleItems())
+	case "ctrl+f":
+		m.moveCursor(m.visibleItems())
+	case "ctrl+b":
+		m.moveCursor(-m.visibleItems())
 	case "/":
 		m.mode = modeSearch
 		m.searchInput.set(m.query)

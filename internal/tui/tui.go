@@ -221,7 +221,13 @@ func (m *model) current() *domain.Opportunity {
 // search runs the current query against the store.
 func (m *model) search() {
 	pq := app.ParseQuery(m.query)
-	f := pq.Filter(m.cfg.UI.PageSize, m.sortBy)
+	// Load every match, not just one page: the header promises "of N" and
+	// the user must be able to reach all of them.
+	limit := m.cfg.UI.PageSize
+	if limit < maxLoadableItems {
+		limit = maxLoadableItems
+	}
+	f := pq.Filter(limit, m.sortBy)
 	f.Verdict = "include"
 	if m.showAll {
 		f.Verdict = ""
@@ -272,29 +278,79 @@ func (m *model) clampCursor() {
 	}
 }
 
-func (m *model) visibleRows() int {
-	// Header (1) + footer (1) + borders.
+// maxLoadableItems caps how many matches the TUI keeps in memory.
+const maxLoadableItems = 500
+
+// listItemLines is the number of terminal lines one list entry occupies
+// (title + meta). Every scroll calculation uses it, so the focused row can
+// never leave the viewport.
+const listItemLines = 2
+
+// listHeight returns the height of the results pane in lines.
+func (m *model) listHeight() int {
+	// Header (1) + footer (2) + one spare line.
 	h := m.height - 4
-	if h < 3 {
-		h = 3
+	if h < listItemLines {
+		h = listItemLines
 	}
 	return h
 }
 
+// visibleItems returns how many list entries fit in the pane.
+func (m *model) visibleItems() int {
+	n := m.listHeight() / listItemLines
+	if n < 1 {
+		n = 1
+	}
+	return n
+}
+
+// moveCursor moves the focus by delta entries and keeps the focused entry
+// inside the visible window.
 func (m *model) moveCursor(delta int) {
 	m.cursor += delta
 	m.clampCursor()
-	// Keep the cursor inside the visible window.
-	rows := m.visibleRows()
+	m.scrollIntoView()
+}
+
+// scrollIntoView adjusts the scroll offset so that the focused entry is
+// visible. It never scrolls past the end of the list.
+func (m *model) scrollIntoView() {
+	page := m.visibleItems()
 	if m.cursor < m.offset {
 		m.offset = m.cursor
 	}
-	if m.cursor >= m.offset+rows {
-		m.offset = m.cursor - rows + 1
+	if m.cursor >= m.offset+page {
+		m.offset = m.cursor - page + 1
+	}
+	maxOffset := len(m.items) - page
+	if maxOffset < 0 {
+		maxOffset = 0
+	}
+	if m.offset > maxOffset {
+		m.offset = maxOffset
 	}
 	if m.offset < 0 {
 		m.offset = 0
 	}
+}
+
+// scrollToTop puts the focus on the first entry.
+func (m *model) scrollToTop() {
+	m.cursor = 0
+	m.offset = 0
+}
+
+// scrollToBottom puts the focus on the last entry.
+func (m *model) scrollToBottom() {
+	m.cursor = len(m.items) - 1
+	m.clampCursor()
+	page := m.visibleItems()
+	m.offset = len(m.items) - page
+	if m.offset < 0 {
+		m.offset = 0
+	}
+	m.scrollIntoView()
 }
 
 // status writes a transient message to the status line.

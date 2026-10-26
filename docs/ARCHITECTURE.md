@@ -598,14 +598,33 @@ an agent, ₹2L prize pool" (include).
 ### 11.3 Keymap (default)
 
 ```
-navigate    ↑/↓, j/k, PgUp/PgDn, g/G, ←/→ (pane switch)
+navigate    ↑/↓, j/k (move), Ctrl+D / Ctrl+U (page), g / G (first / last)
 search      /, Esc, Ctrl+U (clear), Ctrl+W (delete word)
-actions     ⏎ open, o open in browser, c copy URL, y copy details
-filter      f (modal), x clear filters, s cycle sort
-watch       w start/stop watch, a add to watchlist, r refresh/sync now, R force resync
-review      v toggle include/exclude, u undo
+actions     ⏎ open, o show URL, a star, x dismiss
+filter      f (filter syntax), v toggle excluded/uncertain, s cycle sort
+lanes       h hiring lane, c company lane
+sync        r sync now (the TUI also refreshes itself every 5 minutes)
 misc        ? help, q quit, Ctrl+C quit
 ```
+
+### 11.3.1 Focus and viewport geometry
+
+The focused entry is marked with a **full width colour bar** (adaptive light/dark palette), not
+with a cursor glyph: a glyph shifts the text of every focused row and makes the list jump
+sideways, a colour bar keeps the layout constant.
+
+The viewport is measured in **list entries**, not terminal rows. One entry occupies two lines
+(title + meta), so:
+
+```
+visibleItems = paneHeight / 2
+offset       ∈ [0, len(items)-visibleItems]
+cursor       ∈ [offset, offset+visibleItems)
+```
+
+Every movement ends with `scrollIntoView()`, which clamps the offset to the end of the list, so
+the focused entry is always rendered and the header can report the window (`12-24 of 118`).
+Terminals without colour support fall back to a `>` marker on the focused row.
 
 ### 11.4 Implementation notes
 

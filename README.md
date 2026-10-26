@@ -63,6 +63,11 @@ xg search "track:hire prize:>10000"         # hiring events worth a shot
 
 In the TUI: `h` = hiring lane, `c` = company lane. The list marks them with `⚑hire` and `⌂company`.
 
+**Focus and navigation.** The focused row is a full width colour bar (no cursor glyph to
+misalign the list), the header shows the visible window (`12-24 of 118`), and the geometry is
+computed in list entries — two terminal lines each — so the focus can never scroll out of view.
+`j/k`, `ctrl+d/ctrl+u` (page), `g/G` (first/last).
+
 ## The search language
 
 One line mixes free text with filters:

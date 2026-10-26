@@ -6,17 +6,31 @@ import (
 	"time"
 
 	"github.com/charmbracelet/lipgloss"
+	"github.com/muesli/termenv"
 
 	"github.com/ssd-81/x-games/internal/domain"
 )
 
 var (
-	headerStyle   = lipgloss.NewStyle().Bold(true).Padding(0, 1)
-	paneStyle     = lipgloss.NewStyle().Padding(0, 1)
-	selectedStyle = lipgloss.NewStyle().Bold(true)
-	mutedStyle    = lipgloss.NewStyle().Faint(true)
-	badgeStyle    = lipgloss.NewStyle().Faint(true)
+	headerStyle = lipgloss.NewStyle().Bold(true).Padding(0, 1)
+	mutedStyle  = lipgloss.NewStyle().Faint(true)
+
+	// Colour focus: the focused row is highlighted with a background bar
+	// instead of a cursor glyph, so the list keeps a constant layout.
+	focusStyle = lipgloss.NewStyle().
+			Bold(true).
+			Foreground(lipgloss.AdaptiveColor{Light: "#0b1a2b", Dark: "#f8fafc"}).
+			Background(lipgloss.AdaptiveColor{Light: "#7dd3fc", Dark: "#1d4ed8"})
+	focusMetaStyle = lipgloss.NewStyle().
+			Foreground(lipgloss.AdaptiveColor{Light: "#0b1a2b", Dark: "#dbeafe"}).
+			Background(lipgloss.AdaptiveColor{Light: "#bae6fd", Dark: "#1e3a8a"})
 )
+
+// plainTerminal reports whether the terminal cannot render colours. In that
+// case a text marker is used so the focused row is still identifiable.
+func plainTerminal() bool {
+	return lipgloss.ColorProfile() == termenv.Ascii
+}
 
 // View renders the interface.
 func (m *model) View() string {
@@ -91,7 +105,17 @@ func (m *model) headerView() string {
 	} else {
 		parts = append(parts, "▸ all build-events")
 	}
-	parts = append(parts, fmt.Sprintf("%d/%d", len(m.items), m.total))
+	// Show the visible window so the position is predictable.
+	if len(m.items) > 0 {
+		first := m.offset + 1
+		last := m.offset + m.visibleItems()
+		if last > len(m.items) {
+			last = len(m.items)
+		}
+		parts = append(parts, fmt.Sprintf("%d-%d of %d", first, last, m.total))
+	} else {
+		parts = append(parts, "0 of 0")
+	}
 	left := strings.Join(parts, "  ·  ")
 
 	right := ""
@@ -114,14 +138,15 @@ func (m *model) headerView() string {
 	return headerStyle.Render(truncate(line, m.width))
 }
 
-// listView renders the results pane.
+// listView renders the results pane. Every item occupies two lines (title
+// and meta), which is why the geometry helpers count items and not rows.
 func (m *model) listView(width, height int) string {
 	if len(m.items) == 0 {
 		lines := []string{
 			"  no build-events found.",
 			"",
 			"  press r to sync the sources",
-			"  press / to search, ? for help",
+			"  press / to search, ? help",
 		}
 		return pad(strings.Join(lines, "\n"), width)
 	}
@@ -131,40 +156,60 @@ func (m *model) listView(width, height int) string {
 	for i := m.offset; i < len(m.items) && len(lines) < height; i++ {
 		o := m.items[i]
 		title := fmt.Sprintf("%s %s", verdictSymbol(o), o.Title)
-		badge := o.Kind.Label()
-		if o.Status == domain.StatusOpen || o.Status == domain.StatusOngoing {
-			badge += " ●open"
+		meta := fmt.Sprintf("  %s · %s · %s", badgeOf(o, m.starred[o.ID]), truncate(prizeOf(o), 18), deadlineLabel(o, now))
+
+		focused := i == m.cursor
+		prefix := " "
+		if focused && plainTerminal() {
+			// Without colours the focus needs a text marker.
+			prefix = ">"
 		}
-		if o.IsNew {
-			badge += " ★new"
+		titleLine := pad(prefix+truncate(title, width-2), width)
+		metaLine := pad(truncate(meta, width-2), width)
+		if focused {
+			titleLine = focusStyle.Render(titleLine)
+			metaLine = focusMetaStyle.Render(metaLine)
+		} else {
+			metaLine = mutedStyle.Render(metaLine)
 		}
-		switch o.Track {
-		case domain.TrackHire:
-			badge += " ⚑hire"
-		case domain.TrackLearn:
-			badge += " ⚑learn"
-		}
-		if o.Host == domain.HostCompany {
-			badge += " ⌂company"
-		}
-		if m.starred[o.ID] {
-			badge += " ★"
-		}
-		prize := o.Prize.String()
-		if prize == "" {
-			prize = "—"
-		}
-		meta := fmt.Sprintf("%s · %s · %s", badge, truncate(prize, 16), deadlineLabel(o, now))
-		line := truncate(title, width-2)
-		if i == m.cursor {
-			line = selectedStyle.Render("▸" + truncate(title, width-3))
-		}
-		lines = append(lines, pad(line, width))
+		lines = append(lines, titleLine)
 		if len(lines) < height {
-			lines = append(lines, pad("  "+truncate(meta, width-4), width))
+			lines = append(lines, metaLine)
 		}
 	}
 	return strings.Join(lines, "\n")
+}
+
+// badgeOf returns the short badges of an opportunity.
+func badgeOf(o *domain.Opportunity, starred bool) string {
+	badge := o.Kind.Label()
+	if o.Status == domain.StatusOpen || o.Status == domain.StatusOngoing {
+		badge += " ●open"
+	}
+	if o.IsNew {
+		badge += " ★new"
+	}
+	switch o.Track {
+	case domain.TrackHire:
+		badge += " ⚑hire"
+	case domain.TrackLearn:
+		badge += " ⚑learn"
+	}
+	if o.Host == domain.HostCompany {
+		badge += " ⌂company"
+	}
+	if starred {
+		badge += " ★"
+	}
+	return badge
+}
+
+// prizeOf returns the prize of an opportunity or a dash.
+func prizeOf(o *domain.Opportunity) string {
+	if o.Prize.String() == "" {
+		return "—"
+	}
+	return o.Prize.String()
 }
 
 // detailView renders the details of the selected opportunity.
@@ -311,10 +356,14 @@ func (m *model) helpView() string {
 		{"navigate", [][2]string{
 			{"j / ↓", "next event"},
 			{"k / ↑", "previous event"},
-			{"g / G", "top / bottom"},
+			{"ctrl+d / ctrl+u", "page down / page up"},
+			{"g / G", "first / last event"},
 			{"⏎", "open the detail view"},
-			{"tab", "toggle the side by side layout"},
 			{"esc", "back"},
+		}},
+		{"focus", [][2]string{
+			{"colour", "the focused row is a colour bar"},
+			{"header", "shows the visible window and the total"},
 		}},
 		{"search", [][2]string{
 			{"/", "search (free text and filters)"},
