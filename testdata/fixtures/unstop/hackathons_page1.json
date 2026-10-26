@@ -1,0 +1,503 @@
+{
+  "data": {
+    "data": [
+      {
+        "id": 1777958,
+        "title": "Aegython 2026",
+        "seo_url": "https://unstop.com/hackathons/aegython-2026-aeglysai-1777958",
+        "type": "hackathons",
+        "subtype": "online_coding_challenge",
+        "region": "hybrid",
+        "status": "LIVE",
+        "details": "<p><strong>Overview</strong></p>\n<p><span style=\"font-weight: 400;\">Organised by AeglysAI | Free Participation | Individual and Team Entries</span></p>\n<p><span style=\"font-weight: 400;\">AEGYTHON 2026 is an AI/ML and Cybersecurity hackathon that challenges students, developers, engineers, and researchers to build practical, intelligent solutions for real-world problems. Participants will explore areas such as identity security, anomaly detection, API traffic monitoring, security alert explanation, outage prediction, and AI-powered solutions for everyday challenges.</span></p>\n<p><span style=\"font-weight: 400;\">The focus is on working prototypes, technical understanding, responsible innovation, and reproducible results&mdash;not just ideas or presentations.</span></p>\n<p><strong>Challenge Areas</strong></p>\n<p><span style=\"font-weight: 400;\">Participants can choose from six problem statements:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Smart Login Guardian: Identify suspicious login attempts and explain potential risk signals.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Find the Anomaly: Detect unusual patterns in synthetic data or system measurements.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">API Traffic Watch: Identify unusual API request patterns and traffic spikes using synthetic requests.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Explain My Security Alert: Convert structured security alerts into clear explanations and safe recommendations.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Predict the Outage: Analyse synthetic system metrics to identify early warning signs of possible outages.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">AI for Everyday Life: Build a practical AI/ML solution addressing a meaningful everyday problem.</span></li>\n</ul>\n<p><strong>Eligibility</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Students, graduate students, early-career engineers, experienced practitioners, and researchers are the intended audience.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Beginners and first-time contributors can explore the Foundation track; experienced participants may pursue more advanced engineering work.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Participation is free.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Every participant must complete the mandatory individual AeglysAI qualification and be selected before competing.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Age and geographic eligibility must be confirmed in the final official event terms.</span></li>\n</ul>\n<p><strong>Team Formation</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Participants may register individually.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Teams may consist of 1&ndash;4 participants, including the team leader.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Every team member must independently complete the qualification process and be selected.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">A team leader must submit the team roster for organiser verification and obtain a unique team ID.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Participants cannot belong to multiple active teams.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Team membership changes require organiser approval.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Inter-college and inter-specialisation teams should be confirmed with the organisers before being advertised as permitted.</span></li>\n</ul>\n<p><strong>Qualification Process</strong></p>\n<p><span style=\"font-weight: 400;\">Every participant must demonstrate basic familiarity with the AeglysAI project before selection.</span></p>\n<p><span style=\"font-weight: 400;\">The qualification process involves:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Registering individually through the official form.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Forking the official AeglysAI repository into a personal GitHub account.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Cloning the fork and demonstrating that the baseline builds or runs.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Documenting the basic architecture and request/decision flow.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Providing one meaningful technical observation, one realistic improvement idea, and a proposed validation approach.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Submitting the required GitHub links and sanitised build evidence for organiser review.</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Completing qualification does not guarantee selection.</span></p>\n<p><strong>Competition Format and Rounds</strong></p>\n<p><span style=\"font-weight: 400;\">Round 1 &mdash; Technical Screening</span></p>\n<p><span style=\"font-weight: 400;\">Participants submit a working project, source code, a README with setup instructions, testing or validation evidence, and a demonstration video of no more than two minutes. Reviewers evaluate the solution's functionality, intelligent features, relevance, reproducibility, and video clarity.</span></p>\n<p><span style=\"font-weight: 400;\">Round 2 &mdash; Finalist Demonstration</span></p>\n<p><span style=\"font-weight: 400;\">Shortlisted finalists present their working projects live through Google Meet. Each finalist receives five minutes for the demonstration, followed by five minutes of technical questions and answers.</span></p>\n<p><span style=\"font-weight: 400;\">Round 2 determines the final ranking. The two rounds are scored separately.</span></p>\n<p><strong>Judging Criteria</strong></p>\n<p><span style=\"font-weight: 400;\">Round 1 &mdash; 100 points</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Working functionality: 30 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">AI/ML or intelligent feature: 25 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Relevance and creativity: 20 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Reproducibility: 15 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Video clarity: 10 points</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Round 2 &mdash; 100 points</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Live demonstration: 35 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Technical understanding: 25 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Solution quality and safety: 20 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Technical Q&amp;A: 15 points</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Presentation: 5 points</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Final Project Submission Requirements</span></p>\n<p><strong>Each team must submit:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Team ID and selected challenge</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Public GitHub source repository and a fixed review commit or tag</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Project README and reproducible setup instructions</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Demonstration video of up to two minutes</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Explanation of the AI/ML or intelligent technique used</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Testing or validation evidence</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Data and model attribution, licensing information, and known limitations</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">A slide deck or walkthrough alone is not sufficient. The submission must be a working minimum viable product (MVP), executable prototype, or functional proof of concept. Any programming language or framework may be used.</span></p>\n<p><strong>Competition Rules</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Participation is free; no registration fee is required.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Every participant must complete individual qualification and selection before competing.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Teams must follow the approved roster and team ID requirements.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Projects must address the selected challenge and demonstrate functional, testable behaviour.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Participants must submit original work or properly attribute third-party code, data, models, and other resources.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">All submissions must include appropriate setup instructions, testing evidence, and known limitations.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Use only systems and data you are authorised to access. Security testing against unauthorised real systems is prohibited.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Do not include passwords, credentials, personal information, confidential material, or patent-related private data in public submissions.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Participants must treat others respectfully, avoid harassment or discrimination, and credit collaborators and prior work.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Judges must disclose conflicts of interest and recuse themselves where appropriate.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Team changes, roster changes, and other exceptions require organiser approval.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Final rankings are determined after Round 2 judging and organiser review. Qualification or registration alone does not guarantee selection, finalist status, a certificate, or an award.</span></li>\n</ul>\n<p><strong>Timeline and Important Information</strong></p>\n<p><span style=\"font-weight: 400;\">The official website currently lists the event dates, deadlines, and final eligibility terms as pending. The organisers should publish the confirmed registration deadline, qualification deadline, project-submission deadline, finalist announcement, and final event date before this listing is approved.</span></p>\n<p><span style=\"font-weight: 400;\">Organiser: AeglysAI</span></p>",
+        "start_date": null,
+        "end_date": "2026-11-06T00:00:00+05:30",
+        "regn_open": 1,
+        "organisation": {
+          "id": 2113143,
+          "name": "AeglysAI",
+          "public_url": "c/aeglysai-2113143",
+          "logoUrl": "https://d8it4huxumps7.cloudfront.net/images/partners/new_organisation_image-sddutIjZTd379196041JEDQhBkeU.png",
+          "logoUrl2": "https://d8it4huxumps7.cloudfront.net/images/partners/new_organisation_image-sddutIjZTd379196041JEDQhBkeU.png",
+          "show_evaluator_login_link": false,
+          "official_email_domains": null,
+          "tier": null
+        },
+        "prizes": [
+          {
+            "id": 3866598,
+            "rank": "First Rank",
+            "cash": 30000,
+            "currency": "fa-rupee",
+            "certificate": 0,
+            "entity_id": 1777958,
+            "entity_type": "App\\Model\\Opportunity",
+            "others": "",
+            "currencyCode": null,
+            "cash_postfix": null,
+            "max_cash": null,
+            "pre_placement_internship": 0,
+            "pre_placement_opportunity": 1,
+            "prize_type": "cash"
+          },
+          {
+            "id": 3866599,
+            "rank": "Second Rank",
+            "cash": 20000,
+            "currency": "fa-rupee",
+            "certificate": 0,
+            "entity_id": 1777958,
+            "entity_type": "App\\Model\\Opportunity",
+            "others": "",
+            "currencyCode": null,
+            "cash_postfix": null,
+            "max_cash": null,
+            "pre_placement_internship": 0,
+            "pre_placement_opportunity": 1,
+            "prize_type": "cash"
+          },
+          {
+            "id": 3866600,
+            "rank": "Third Rank",
+            "cash": 10000,
+            "currency": "fa-rupee",
+            "certificate": 0,
+            "entity_id": 1777958,
+            "entity_type": "App\\Model\\Opportunity",
+            "others": "",
+            "currencyCode": null,
+            "cash_postfix": null,
+            "max_cash": null,
+            "pre_placement_internship": 0,
+            "pre_placement_opportunity": 1,
+            "prize_type": "cash"
+          }
+        ],
+        "regnRequirements": {
+          "opportunity_id": 1777958,
+          "start_regn_dt": "2026-10-26T00:00:00+05:30",
+          "end_regn_dt": "2026-11-06T00:00:00+05:30",
+          "show_deadline": 1,
+          "min_team_size": 1,
+          "max_team_size": 4,
+          "work_location_type": "city",
+          "eligibility": "{\"sector\":[\"students\",\"fresher\",\"corporates\"],\"engineering\":[],\"bSchools\":[],\"arts\":[],\"medicine\":[],\"law\":[],\"others\":[\"all\"],\"experience\":[\"all\"],\"studentPassoutYearsSelected\":[\"all\"],\"fresherPassoutYearsSelected\":[\"all\"],\"schoolFilteredClasses\":[\"all\"],\"minMarks\":{\"high_school_perc\":0,\"high_school_cgpa\":0},\"locations\":[],\"location_type\":\"all\",\"professionalEligibility\":null,\"fresherEligibility\":null}",
+          "reg_status": "STARTED",
+          "remainingDaysArray": {
+            "durations": 10,
+            "text": " days left"
+          },
+          "remain_days": "10 days left",
+          "remaining_time": 895513
+        },
+        "required_skills": [
+          {
+            "id": 645910,
+            "skill": "Cybersecurity Frameworks",
+            "skill_name": "Cybersecurity Frameworks",
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 645910,
+              "id": 6670029,
+              "ai_generated": false
+            }
+          },
+          {
+            "id": 645580,
+            "skill": "Artificial Intelligence (AI)",
+            "skill_name": "Artificial Intelligence (AI)",
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 645580,
+              "id": 6670030,
+              "ai_generated": false
+            }
+          },
+          {
+            "id": 645580,
+            "skill": "Artificial Intelligence (AI)",
+            "skill_name": "Artificial Intelligence (AI)",
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 645580,
+              "id": 6670032,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 646619,
+            "skill": "Machine Learning Concepts",
+            "skill_name": "Machine Learning Concepts",
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 646619,
+              "id": 6670033,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 645541,
+            "skill": "Anomaly Detection",
+            "skill_name": "Anomaly Detection",
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 645541,
+              "id": 6670034,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 645910,
+            "skill": "Cybersecurity Frameworks",
+            "skill_name": "Cybersecurity Frameworks",
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 645910,
+              "id": 6670035,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 646248,
+            "skill": "Git Version Control",
+            "skill_name": "Git Version Control",
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 646248,
+              "id": 6670036,
+              "ai_generated": true
+            }
+          }
+        ],
+        "filters": [
+          {
+            "id": 421,
+            "name": "Experienced Professionals",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "corporate",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/corporate.svg"
+          },
+          {
+            "id": 422,
+            "name": "Engineering Students",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "engineering",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/engineering.svg"
+          },
+          {
+            "id": 424,
+            "name": "Postgraduate",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "postgraduate",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/postgraduate.svg"
+          },
+          {
+            "id": 426,
+            "name": "Undergraduate",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "undergraduate",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/undergraduate.svg"
+          },
+          {
+            "id": 679,
+            "name": "Fresher",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "fresher",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/fresher.svg"
+          },
+          {
+            "id": 4022,
+            "name": "Management",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          },
+          {
+            "id": 4023,
+            "name": "Medical",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          },
+          {
+            "id": 4024,
+            "name": "Law",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          },
+          {
+            "id": 4025,
+            "name": "Arts, Commerce, Sciences & Others",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          }
+        ],
+        "workfunction": [
+          {
+            "id": 2092,
+            "name": "Cyber Security",
+            "description": "",
+            "created_at": "2026-04-09T00:17:10+05:30",
+            "updated_at": "2026-04-09T00:17:10+05:30",
+            "work_function_name": null,
+            "batch_id": 11,
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 2092,
+              "id": 6670037,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 2107,
+            "name": "AI Engineering",
+            "description": "",
+            "created_at": "2026-04-09T00:17:10+05:30",
+            "updated_at": "2026-04-09T00:17:10+05:30",
+            "work_function_name": null,
+            "batch_id": 11,
+            "pivot": {
+              "entity_id": 1777958,
+              "subject_id": 2107,
+              "id": 6670038,
+              "ai_generated": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 1778044,
+        "title": "Fetch-A-Thon 3.0",
+        "seo_url": "https://unstop.com/hackathons/fetch-a-thon-30-masters-union-school-of-business-1778044",
+        "type": "hackathons",
+        "subtype": "online_coding_challenge",
+        "region": "offline",
+        "status": "LIVE",
+        "details": "<p><strong>Overview</strong></p>\n<p><span style=\"font-weight: 400;\">Welcome to Fetch-A-Thon 3.0, a national-level AI Agent hackathon bringing together students, developers, innovators, startup enthusiasts, and AI enthusiasts from across India to explore the exciting world of Agentic AI and build intelligent, real-world AI Agent solutions.</span></p>\n<p><span style=\"font-weight: 400;\">Whether you're an experienced developer or just beginning your AI journey, this is your chance to LEARN. BUILD. COLLABORATE. INNOVATE.</span></p>\n<p><span style=\"font-weight: 400;\">The challenge is real. The possibilities are limitless. Are you ready?</span></p>\n<p><span style=\"font-weight: 400;\">WhatsApp group:&nbsp;</span><a href=\"https://chat.whatsapp.com/FAgowp2Sd4PApaXr6jqQyL?utm_source=chatgpt.com\"><span style=\"font-weight: 400;\">https://chat.whatsapp.com/FAgowp2Sd4PApaXr6jqQyL</span></a></p>\n<p><strong>What Is Fetch-A-Thon 3.0?</strong></p>\n<ul>\n<li><span style=\"font-weight: 400;\">Fetch-A-Thon 3.0 is a hands-on national AI Agent challenge where participants explore how intelligent agents can understand user intent, interact with tools and services, coordinate with other agents, and perform meaningful tasks.</span></li>\n<li><span style=\"font-weight: 400;\">Get introduced to ASI and Agentverse, explore the possibilities of Agentic AI, and put your skills to the test by developing practical AI Agent solutions that address real-world problems.</span></li>\n<li><span style=\"font-weight: 400;\">Don't just build another chatbot. Think bigger. Build something that can actually DO something.</span></li>\n</ul>\n<p><strong>What Awaits You?</strong></p>\n<p><strong>Explore AI Agents &amp; Agentic AI</strong></p>\n<p><span style=\"font-weight: 400;\">Discover how AI is evolving beyond traditional chatbots into intelligent systems capable of reasoning, interacting with tools, coordinating workflows, and taking action.</span></p>\n<p><strong>Build with ASI &amp; Agentverse</strong></p>\n<p><span style=\"font-weight: 400;\">Explore the ASI ecosystem and get hands-on with technologies that help you understand and build AI Agent-based solutions.</span></p>\n<p><strong>Solve a Real-World Challenge</strong></p>\n<p><span style=\"font-weight: 400;\">Put your creativity and technical skills to work. Identify a meaningful problem, develop your approach, and transform your idea into a functional AI Agent.</span></p>\n<p><strong>Learn by Building</strong></p>\n<p><span style=\"font-weight: 400;\">Design, develop, test, and refine your solution with your team. Experiment, iterate, troubleshoot, and turn your concepts into working prototypes.</span></p>\n<p><strong>Learn from Mentors</strong></p>\n<p><span style=\"font-weight: 400;\">Get guidance, insights, and feedback to help you strengthen your ideas and improve your project throughout the building process.</span></p>\n<p><strong>Who Should Participate?</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">College student or aspiring developer</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Software developer or engineer</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">AI/ML enthusiast</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">AI Agent builder</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Startup founder or aspiring entrepreneur</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Open-source contributor</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Curious innovator excited about Agentic AI</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">No need to be an AI expert to get started! Bring your curiosity, creativity, willingness to learn, and passion for solving problems. The goal is to learn by building and push the boundaries of what you can create.</span></p>\n<p><strong>What Can You Build?</strong></p>\n<p><span style=\"font-weight: 400;\">Think beyond conventional applications. Imagine AI Agents that can:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Automate repetitive tasks and workflows.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Help people make smarter, more informed decisions.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Interact with tools, APIs, and digital services.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coordinate multiple tasks to solve complex problems.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Deliver innovative solutions to everyday challenges.</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">These are just starting points. Your imagination sets the direction. Your skills bring the idea to life.</span></p>\n<p><strong>Project Submission &amp; Results</strong></p>\n<ul>\n<li><span style=\"font-weight: 400;\">Participants will develop their AI Agent solutions and submit their projects for evaluation.</span></li>\n<li><span style=\"font-weight: 400;\">Final Results Announcement: 28 October 2026</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Build something meaningful, demonstrate what your solution can do, and show the world what's possible with Agentic AI!</span></p>\n<p><span style=\"font-weight: 400;\">Fetch-A-Thon 3.0</span></p>\n<p><span style=\"font-weight: 400;\">Learn. Build. Collaborate. Create.</span></p>\n<p><span style=\"font-weight: 400;\">The future isn't just intelligent. It's agentic. Let's build it together.</span></p>",
+        "start_date": null,
+        "end_date": "2026-11-05T21:15:27+05:30",
+        "regn_open": 1,
+        "organisation": {
+          "id": 135241,
+          "name": "Masters' Union School of Business",
+          "public_url": "c/masters-union-school-of-business-placement-interview-competitions-articles-videos-135241",
+          "logoUrl": "https://d8it4huxumps7.cloudfront.net/images/partners/partners75/6344f1fd42bee_Masters_Union_Logo_Black_on_Transparent.png",
+          "logoUrl2": "https://d8it4huxumps7.cloudfront.net/images/partners/partners125/6344f1fd42bee_Masters_Union_Logo_Black_on_Transparent.png",
+          "show_evaluator_login_link": false,
+          "official_email_domains": "@mastersunion.org",
+          "tier": 2
+        },
+        "prizes": [],
+        "regnRequirements": {
+          "opportunity_id": 1778044,
+          "start_regn_dt": "2026-10-26T08:31:18+05:30",
+          "end_regn_dt": "2026-11-05T08:31:18+05:30",
+          "show_deadline": 1,
+          "min_team_size": 1,
+          "max_team_size": 5,
+          "work_location_type": "city",
+          "eligibility": "{\"sector\":[\"students\",\"fresher\",\"corporates\"],\"engineering\":[],\"bSchools\":[],\"arts\":[],\"medicine\":[],\"law\":[],\"others\":[\"all\"],\"experience\":[\"all\"],\"studentPassoutYearsSelected\":[\"all\"],\"fresherPassoutYearsSelected\":[\"all\"],\"schoolFilteredClasses\":[\"all\"],\"minMarks\":{\"high_school_perc\":0,\"high_school_cgpa\":0},\"locations\":[],\"location_type\":\"all\",\"professionalEligibility\":null,\"fresherEligibility\":null}",
+          "reg_status": "STARTED",
+          "remainingDaysArray": {
+            "durations": 9,
+            "text": " days left"
+          },
+          "remain_days": "9 days left",
+          "remaining_time": 839729
+        },
+        "required_skills": [
+          {
+            "id": 645580,
+            "skill": "Artificial Intelligence (AI)",
+            "skill_name": "Artificial Intelligence (AI)",
+            "pivot": {
+              "entity_id": 1778044,
+              "subject_id": 645580,
+              "id": 6669996,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 647749,
+            "skill": "Workflow Automation",
+            "skill_name": "Workflow Automation",
+            "pivot": {
+              "entity_id": 1778044,
+              "subject_id": 647749,
+              "id": 6669997,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 645559,
+            "skill": "API Integration",
+            "skill_name": "API Integration",
+            "pivot": {
+              "entity_id": 1778044,
+              "subject_id": 645559,
+              "id": 6669998,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 1373,
+            "skill": "Problem Solving",
+            "skill_name": "Problem Solving",
+            "pivot": {
+              "entity_id": 1778044,
+              "subject_id": 1373,
+              "id": 6669999,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 643462,
+            "skill": "Collaboration Skills",
+            "skill_name": "Collaboration Skills",
+            "pivot": {
+              "entity_id": 1778044,
+              "subject_id": 643462,
+              "id": 6670000,
+              "ai_generated": true
+            }
+          }
+        ],
+        "filters": [
+          {
+            "id": 421,
+            "name": "Experienced Professionals",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "corporate",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/corporate.svg"
+          },
+          {
+            "id": 422,
+            "name": "Engineering Students",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "engineering",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/engineering.svg"
+          },
+          {
+            "id": 424,
+            "name": "Postgraduate",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "postgraduate",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/postgraduate.svg"
+          },
+          {
+            "id": 426,
+            "name": "Undergraduate",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "undergraduate",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/undergraduate.svg"
+          },
+          {
+            "id": 679,
+            "name": "Fresher",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": "fresher",
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/fresher.svg"
+          },
+          {
+            "id": 4022,
+            "name": "Management",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          },
+          {
+            "id": 4023,
+            "name": "Medical",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          },
+          {
+            "id": 4024,
+            "name": "Law",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          },
+          {
+            "id": 4025,
+            "name": "Arts, Commerce, Sciences & Others",
+            "type": "eligible",
+            "subtype": null,
+            "file_name": null,
+            "domain_id": 0,
+            "icon_url": "https://d8it4huxumps7.cloudfront.net/images/icons/color_icons/.svg"
+          }
+        ],
+        "workfunction": [
+          {
+            "id": 2176,
+            "name": "Agentic AI Engineer",
+            "description": "",
+            "created_at": "2026-02-06T23:31:46+05:30",
+            "updated_at": "2026-02-06T23:31:46+05:30",
+            "work_function_name": null,
+            "batch_id": 11,
+            "pivot": {
+              "entity_id": 1778044,
+              "subject_id": 2176,
+              "id": 6670001,
+              "ai_generated": true
+            }
+          },
+          {
+            "id": 2107,
+            "name": "AI Engineering",
+            "description": "",
+            "created_at": "2026-04-09T00:17:10+05:30",
+            "updated_at": "2026-04-09T00:17:10+05:30",
+            "work_function_name": null,
+            "batch_id": 11,
+            "pivot": {
+              "entity_id": 1778044,
+              "subject_id": 2107,
+              "id": 6669995,
+              "ai_generated": false
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

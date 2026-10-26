@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "total_count": 167,
+    "per_page": 9,
+    "fuzzy": false
+  },
+  "hackathons": [
+    {
+      "id": 30790,
+      "title": "Nebius x NVIDIA Global AI Hackathon",
+      "url": "https://nebiusglobalaihackathon.devpost.com/",
+      "organization_name": "nebius",
+      "displayed_location": {
+        "icon": "globe",
+        "location": "Online"
+      },
+      "open_state": "open",
+      "prize_amount": "$<span data-currency-value>50,000</span>",
+      "submission_period_dates": "Aug 26 - Oct 30, 2026",
+      "themes": [
+        {
+          "id": 6,
+          "name": "Machine Learning/AI"
+        },
+        {
+          "id": 23,
+          "name": "Beginner Friendly"
+        },
+        {
+          "id": 27,
+          "name": "Robotic Process Automation"
+        }
+      ],
+      "registrations_count": 27608,
+      "invite_only": false
+    },
+    {
+      "id": 31302,
+      "title": "PayPal AI Hackathon",
+      "url": "https://paypalaihackathon.devpost.com/",
+      "organization_name": "PayPal",
+      "displayed_location": {
+        "icon": "globe",
+        "location": "Online"
+      },
+      "open_state": "open",
+      "prize_amount": "$<span data-currency-value>67,500</span>",
+      "submission_period_dates": "Oct 01 - Nov 12, 2026",
+      "themes": [
+        {
+          "id": 17,
+          "name": "Low/No Code"
+        },
+        {
+          "id": 6,
+          "name": "Machine Learning/AI"
+        },
+        {
+          "id": 25,
+          "name": "Web"
+        }
+      ],
+      "registrations_count": 21596,
+      "invite_only": false
+    },
+    {
+      "id": 30984,
+      "title": "OpenCV AI Competition 2026, powered by AWS",
+      "url": "https://opencv26.devpost.com/",
+      "organization_name": "OpenCV",
+      "displayed_location": {
+        "icon": "globe",
+        "location": "Online"
+      },
+      "open_state": "open",
+      "prize_amount": "$<span data-currency-value>20,250</span>",
+      "submission_period_dates": "Aug 26 - Oct 27, 2026",
+      "themes": [
+        {
+          "id": 7,
+          "name": "IoT"
+        },
+        {
+          "id": 6,
+          "name": "Machine Learning/AI"
+        },
+        {
+          "id": 29,
+          "name": "Serverless"
+        }
+      ],
+      "registrations_count": 6168,
+      "invite_only": false
+    }
+  ]
+}
